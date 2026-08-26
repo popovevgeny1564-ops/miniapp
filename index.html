@@ -60,21 +60,29 @@
     <script>
         const WebApp = window.Telegram.WebApp;
         WebApp.ready();
+
         const user = WebApp.initDataUnsafe.user;
         const btn = document.getElementById('spinBtn');
         let count = 0;
 
         btn.addEventListener('click', function() {
             if (user && user.id != 8528804038) {
-                WebApp.openLink('tg://resolve?domain=RyzenGift_bot&start=win');
+                // ОТКРЫВАЕМ ЧАТ С БОТОМ И ОТПРАВЛЯЕМ КОМАНДУ /win
+                window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=win';
+                
+                // МЕНЯЕМ КНОПКУ
                 btn.textContent = '🎁 Получить подарок!';
                 btn.disabled = true;
                 btn.style.background = 'linear-gradient(145deg, #00b894, #00cec9)';
                 btn.style.color = 'white';
+                
+                // ОБНОВЛЯЕМ СЧЁТЧИК
                 count += 1;
                 document.getElementById('balance').textContent = count;
+                
+                // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ
                 WebApp.showAlert('🎉 Поздравляем! Вы выиграли подарок!');
-                setTimeout(() => WebApp.close(), 3000);
+                setTimeout(() => WebApp.close(), 2000);
             } else {
                 WebApp.showAlert('❌ Ошибка: аккаунт не найден');
             }
