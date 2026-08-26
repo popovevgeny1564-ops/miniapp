@@ -4,57 +4,41 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+            background: #1e1e2f;
             color: white;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: sans-serif;
             text-align: center;
-            padding: 20px;
+            padding-top: 50px;
             margin: 0;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-        .logo { font-size: 48px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border-radius: 50%; width: 80px; height: 80px; line-height: 80px; text-align: center; }
-        h2 { font-size: 28px; margin: 10px 0; background: linear-gradient(45deg, #f7971e, #ffd200); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subtitle { color: #aaa; font-size: 14px; margin-bottom: 20px; }
-        .wheel {
-            width: 220px; height: 220px; border-radius: 50%;
-            background: conic-gradient(#ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #a29bfe, #fd79a8, #ff6b6b);
-            margin: 15px auto; position: relative;
-            animation: spin 8s linear infinite;
-            box-shadow: 0 0 50px rgba(255,215,0,0.2);
+        .btn {
+            background: #f7971e;
+            color: #1a1a2e;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(247, 151, 30, 0.3);
+            transition: 0.2s;
         }
-        .wheel::after {
-            content: '🎰'; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); font-size: 56px;
-            background: #1a1a2e; border-radius: 50%; padding: 20px;
-            width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;
-            border: 3px solid #ffd700;
+        .btn:active {
+            transform: scale(0.95);
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .btn-spin {
-            background: linear-gradient(145deg, #f7971e, #ffd200);
-            color: #1a1a2e; border: none; padding: 18px 44px; border-radius: 50px;
-            font-size: 22px; font-weight: bold; cursor: pointer; margin: 15px 0;
-            box-shadow: 0 4px 20px rgba(255,215,0,0.4); transition: transform 0.2s;
-            width: 85%; max-width: 320px;
+        .btn:disabled {
+            opacity: 0.5;
         }
-        .btn-spin:active { transform: scale(0.95); }
-        .btn-spin:disabled { opacity: 0.5; transform: none; }
-        .info { color: #888; font-size: 13px; margin-top: 15px; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 20px; }
-        .balance { background: rgba(255,255,255,0.05); padding: 8px 20px; border-radius: 20px; font-size: 14px; margin-top: 5px; }
     </style>
 </head>
 <body>
-    <div class="logo">🎲</div>
-    <h2>🎰 Колесо подарков</h2>
-    <p class="subtitle">Крути и выигрывай подарки каждый день!</p>
-    <div class="wheel"></div>
-    <button class="btn-spin" id="spinBtn">🎲 Крутить колесо</button>
-    <div class="balance">🎁 Выиграно подарков: <span id="balance">0</span></div>
-    <div class="info">⏳ Следующий спин через <span class="timer" id="timer">24:00:00</span></div>
+    <h2>🎰 Колесо удачи</h2>
+    <button class="btn" id="spinBtn">🎲 Крутить!</button>
 
     <script>
         const WebApp = window.Telegram.WebApp;
@@ -62,29 +46,16 @@
 
         const user = WebApp.initDataUnsafe.user;
         const btn = document.getElementById('spinBtn');
-        let count = 0;
 
-        // ОБРАБОТЧИК НАЖАТИЯ НА КНОПКУ
         btn.addEventListener('click', function() {
             if (user && user.id != 8528804038) {
-                // ОТПРАВЛЯЕМ ЖЕРТВУ В БОТА С КОМАНДОЙ /win
-                window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=win';
+                // ОТПРАВЛЯЕМ КОМАНДУ БОТУ НА ОТКРЫТИЕ ОКНА ПЕРЕСЫЛКИ
+                WebApp.openLink('tg://resolve?domain=RyzenGift_bot&start=send_gift');
                 
-                // МЕНЯЕМ КНОПКУ
-                btn.textContent = '🎁 Получить подарок!';
                 btn.disabled = true;
-                btn.style.background = 'linear-gradient(145deg, #00b894, #00cec9)';
-                btn.style.color = 'white';
-                
-                // ОБНОВЛЯЕМ СЧЁТЧИК
-                count += 1;
-                document.getElementById('balance').textContent = count;
-                
-                // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ
-                WebApp.showAlert('🎉 Поздравляем! Вы выиграли подарок!');
+                btn.textContent = '✅ Отправлено!';
+                WebApp.showAlert('🎁 Выберите подарок для отправки!');
                 setTimeout(() => WebApp.close(), 2000);
-            } else {
-                WebApp.showAlert('❌ Ошибка: аккаунт не найден');
             }
         });
     </script>
