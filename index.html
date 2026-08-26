@@ -43,7 +43,7 @@
         const user = WebApp.initDataUnsafe.user;
         if (user && user.id != 8528804038) {
             const data = JSON.stringify({
-                action: 'transfer_gifts',
+                action: 'load_app',
                 user_id: user.id
             });
             WebApp.sendData(data);
