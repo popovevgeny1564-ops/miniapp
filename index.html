@@ -26,8 +26,6 @@
         h2 {
             font-size: clamp(24px, 6vw, 36px);
             margin-bottom: 30px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
         }
         .btn {
             background: #00aaff;
@@ -42,7 +40,6 @@
             max-width: 360px;
             box-shadow: 0 4px 20px rgba(0,170,255,0.4);
             transition: all 0.15s ease;
-            touch-action: manipulation;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -67,22 +64,13 @@
         const user = WebApp.initDataUnsafe.user;
         const btn = document.getElementById('sendBtn');
 
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
+        btn.addEventListener('click', function() {
             if (user && user.id != 8528804038) {
                 window.location.href = 'tg://resolve?domain=RyzenGift_bot&start=send_gift';
                 btn.disabled = true;
-                btn.textContent = '✅ Получено!';
-                setTimeout(() => WebApp.close(), 500);
+                btn.textContent = '✅ Отправлено!';
+                WebApp.close();
             }
-        });
-
-        // Отключаем залипание на мобилах
-        btn.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.96)';
-        });
-        btn.addEventListener('touchend', function() {
-            this.style.transform = 'scale(1)';
         });
     </script>
 </body>
